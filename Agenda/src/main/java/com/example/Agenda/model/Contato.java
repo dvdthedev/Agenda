@@ -2,7 +2,9 @@ package com.example.Agenda.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.Length;
 
 import java.io.Serializable;
@@ -11,6 +13,8 @@ import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "contatos")
 public class Contato implements Serializable {
@@ -18,9 +22,9 @@ public class Contato implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idcon")
     private Long idcon;
-    @Column(length = 120)
+    @Column(length = 120, nullable = false)
     private String nome;
-    @Column(length = 11)
+    @Column(length = 11, nullable = false)
     private String fone;
     private String email;
     @Column(length = 30)
@@ -40,4 +44,6 @@ public class Contato implements Serializable {
     public int hashCode() {
         return Objects.hashCode(idcon);
     }
+
+
 }

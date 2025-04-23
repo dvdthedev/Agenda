@@ -1,0 +1,9 @@
+CREATE TABLE contatos (
+    idcon BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(120) NOT NULL,
+    fone VARCHAR(11) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    data_criacao DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    apelido VARCHAR(30),
+    PRIMARY KEY (idcon)
+);
