@@ -12,10 +12,8 @@ import java.util.Date;
 import java.util.Objects;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
-@Setter
-@Entity
+@Entity(name = "contato")
 @Table(name = "contatos")
 public class Contato implements Serializable {
     @Id
@@ -29,9 +27,7 @@ public class Contato implements Serializable {
     private String email;
     @Column(length = 30)
     private String apelido;
-    @Column(name = "data_criacao", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCriacao;
+
 
     @Override
     public boolean equals(Object o) {
@@ -40,10 +36,16 @@ public class Contato implements Serializable {
         return Objects.equals(idcon, contato.idcon);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(idcon);
+//    @Override
+//    public int hashCode() {
+//        return Objects.hashCode(idcon);
+//    }
+
+    public Contato(String nome, String fone, String email, String apelido) {
+        this.nome = nome;
+        this.fone = fone;
+        this.email = email;
+        this.apelido = apelido;
+
     }
-
-
 }
