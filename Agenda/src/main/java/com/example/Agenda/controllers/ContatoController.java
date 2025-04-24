@@ -24,11 +24,13 @@ public class ContatoController {
 
     @PostMapping(value = "/", produces = "application/json")
     @Transactional
-    public ResponseEntity<Contato> cadastrar(@RequestBody DadosCadastroContato contato){
+    public ResponseEntity<DadosCadastroContato> cadastrar(@RequestBody DadosCadastroContato contato){
 
-        contatoService.adicionar(contato);
+        Contato contatoSalvo = contatoService.adicionar(contato);
 
-        return new ResponseEntity(new Contato(contato.nome(), contato.fone(), contato.email(), contato.apelido()), HttpStatus.CREATED);
+        return new ResponseEntity<DadosCadastroContato>(new DadosCadastroContato(contatoSalvo.getId(),  contatoSalvo.getNome(), contatoSalvo.getFone(), contatoSalvo.getEmail(), contatoSalvo.getApelido()), HttpStatus.CREATED);
 
     }
 }
+
+//contato.nome(), contato.fone(), contato.email(), contato.apelido()

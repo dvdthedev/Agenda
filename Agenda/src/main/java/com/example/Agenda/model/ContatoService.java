@@ -12,13 +12,18 @@ public class ContatoService {
     @Autowired
     ContatoRepository contatoRepository;
 
+    public ContatoService(ContatoRepository contatoRepository) {
+        this.contatoRepository = contatoRepository;
+    }
 
 
-    public void adicionar(DadosCadastroContato dados){
 
-        var contato = new Contato(dados.nome(), dados.fone(), dados.email(), dados.apelido());
+    public Contato adicionar(DadosCadastroContato dados){
+    var contato = new Contato(dados.nome(), dados.fone(), dados.email(), dados.apelido());
+        return contatoRepository.save(contato);
 
-        contatoRepository.save(contato);
+
+
 
     }
 }

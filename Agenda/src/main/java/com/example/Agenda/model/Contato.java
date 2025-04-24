@@ -18,8 +18,7 @@ import java.util.Objects;
 public class Contato implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idcon")
-    private Long idcon;
+    private Long id;
     @Column(length = 120, nullable = false)
     private String nome;
     @Column(length = 11, nullable = false)
@@ -27,25 +26,27 @@ public class Contato implements Serializable {
     private String email;
     @Column(length = 30)
     private String apelido;
-
+    @Column(name = "data_criacao")
+    private Date dataCriacao;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Contato contato = (Contato) o;
-        return Objects.equals(idcon, contato.idcon);
+        return Objects.equals(id, contato.id);
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hashCode(idcon);
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 
-    public Contato(String nome, String fone, String email, String apelido) {
+    public Contato(String nome,String fone, String email, String apelido) {
+        this.id = id;
         this.nome = nome;
         this.fone = fone;
         this.email = email;
         this.apelido = apelido;
-
+        this.dataCriacao = new Date();
     }
 }
