@@ -6,9 +6,14 @@ import com.example.Agenda.model.ContatoService;
 import com.example.Agenda.repository.ContatoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/contato")
@@ -49,6 +54,19 @@ public class ContatoController {
         Contato contato = contatoRepository.getReferenceById(id);
         return new ResponseEntity<DadosCadastroContato>(new DadosCadastroContato(contato), HttpStatus.OK);
     }
+
+    @GetMapping()
+    public ResponseEntity<Page<DadosCadastroContato>> listarContatos(@PageableDefault(size = 10, sort = {"nome"}) Pageable pageable){
+        var page = contatoRepository.findAll(pageable).map(DadosCadastroContato::new);
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping(value = "/buscarPorNome", produces = "application/json")
+    public ResponseEntity<List<Contato>> getContatoById(@RequestParam(name = "nome") String nome){
+        List<Contato> contatos = contatoRepository.findByNomeContaining(nome);
+        return new ResponseEntity<List<Contato>>(contatos, HttpStatus.OK);
+    }
+
 }
 
 

@@ -1,4 +1,4 @@
-package com.example.Agenda.Expection;
+package com.example.Agenda.expection;
 
 public class ValidacaoException extends RuntimeException {
     public ValidacaoException(String mensagem) {

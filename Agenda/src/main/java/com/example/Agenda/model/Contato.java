@@ -2,11 +2,9 @@ package com.example.Agenda.model;
 
 import com.example.Agenda.dto.DadosCadastroContato;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.Length;
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -64,5 +62,12 @@ public class Contato implements Serializable {
         if (dados.apelido() != null) {
             this.apelido = dados.apelido();
         }
+    }
+
+    public Contato(DadosCadastroContato dados){
+        this.nome = getNome();
+        this.fone = getFone();
+        this.email = getEmail();
+        this.apelido = getApelido();
     }
 }
