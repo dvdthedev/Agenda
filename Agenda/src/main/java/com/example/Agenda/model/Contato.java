@@ -1,5 +1,6 @@
 package com.example.Agenda.model;
 
+import com.example.Agenda.dto.DadosCadastroContato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,5 +49,20 @@ public class Contato implements Serializable {
         this.email = email;
         this.apelido = apelido;
         this.dataCriacao = new Date();
+    }
+
+    public void atualizarInformacoes(DadosCadastroContato dados){
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.fone() != null) {
+            this.fone = dados.fone();
+        }
+        if (dados.email() != null) {
+            this.email = dados.email();
+        }
+        if (dados.apelido() != null) {
+            this.apelido = dados.apelido();
+        }
     }
 }

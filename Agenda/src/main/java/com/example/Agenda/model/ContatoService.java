@@ -26,4 +26,9 @@ public class ContatoService {
 
 
     }
+
+    public void deletar(Long id) {
+         var contato = contatoRepository.findById(id).orElseThrow(() -> new ValidacaoException("Usuário não encontrado"));
+         contatoRepository.deleteById(id);
+    }
 }

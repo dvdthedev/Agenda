@@ -8,10 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/contato")
@@ -28,9 +25,32 @@ public class ContatoController {
 
         Contato contatoSalvo = contatoService.adicionar(contato);
 
-        return new ResponseEntity<DadosCadastroContato>(new DadosCadastroContato(contatoSalvo.getId(),  contatoSalvo.getNome(), contatoSalvo.getFone(), contatoSalvo.getEmail(), contatoSalvo.getApelido()), HttpStatus.CREATED);
+        return new ResponseEntity<DadosCadastroContato>(new DadosCadastroContato(contatoSalvo), HttpStatus.CREATED);
+    }
 
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody DadosCadastroContato dados){
+        var contato = contatoRepository.getReferenceById(dados.id());
+        contato.atualizarInformacoes(dados);
+        return ResponseEntity.ok(new DadosCadastroContato(contato));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity excluir(@PathVariable Long id){
+        contatoService.deletar(id);
+        return ResponseEntity.ok("Deletado");
+    }
+
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DadosCadastroContato> obterContato (@PathVariable Long id){
+        Contato contato = contatoRepository.getReferenceById(id);
+        return new ResponseEntity<DadosCadastroContato>(new DadosCadastroContato(contato), HttpStatus.OK);
     }
 }
+
+
 
 //contato.nome(), contato.fone(), contato.email(), contato.apelido()

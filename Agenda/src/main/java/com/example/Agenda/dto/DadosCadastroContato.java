@@ -1,6 +1,7 @@
 package com.example.Agenda.dto;
 
 import com.example.Agenda.model.Contato;
+
 import org.antlr.v4.runtime.misc.NotNull;
 
 public record DadosCadastroContato (
@@ -13,5 +14,7 @@ public record DadosCadastroContato (
         String email,
         String apelido
 ) {
-
+        public DadosCadastroContato(Contato contato){
+                this(contato.getId(), contato.getNome(), contato.getFone(), contato.getEmail(), contato.getApelido());
+        }
 }
