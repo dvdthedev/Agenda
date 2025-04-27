@@ -4,6 +4,7 @@ import com.example.Agenda.dto.DadosCadastroContato;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity(name = "contato")
 @Table(name = "contatos")
 public class Contato implements Serializable {
@@ -65,9 +67,10 @@ public class Contato implements Serializable {
     }
 
     public Contato(DadosCadastroContato dados){
-        this.nome = getNome();
-        this.fone = getFone();
-        this.email = getEmail();
-        this.apelido = getApelido();
+        this.nome = dados.nome();
+        this.fone = dados.fone();
+        this.email = dados.email();
+        this.apelido = dados.apelido();
+        this.dataCriacao = new Date();
     }
 }

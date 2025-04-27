@@ -21,6 +21,10 @@ public class ContatoService {
 
     public Contato adicionar(DadosCadastroContato dados){
     var contato = new Contato(dados);
+        if(dados.nome() == null || dados.email() == null || dados.fone() == null){
+            throw new ValidacaoException("Os campos : nome, email e fone não podem ser nulos");
+    }
+
         return contatoRepository.save(contato);
 
 

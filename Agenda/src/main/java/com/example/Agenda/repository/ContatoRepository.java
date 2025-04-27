@@ -11,5 +11,5 @@ import java.util.List;
 
 @Repository
 public interface ContatoRepository extends JpaRepository<Contato, Long> {
-    List<Contato> findByNomeContaining(String nome);
+    List<DadosCadastroContato> findByNomeContaining(String nome);
 }

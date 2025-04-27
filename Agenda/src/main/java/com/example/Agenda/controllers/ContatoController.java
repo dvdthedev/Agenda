@@ -5,6 +5,7 @@ import com.example.Agenda.model.Contato;
 import com.example.Agenda.model.ContatoService;
 import com.example.Agenda.repository.ContatoRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class ContatoController {
 
     @PostMapping(value = "/", produces = "application/json")
     @Transactional
-    public ResponseEntity<DadosCadastroContato> cadastrar(@RequestBody DadosCadastroContato contato){
+    public ResponseEntity<DadosCadastroContato> cadastrar(@RequestBody @Valid DadosCadastroContato contato){
 
         Contato contatoSalvo = contatoService.adicionar(contato);
 
@@ -44,6 +45,7 @@ public class ContatoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id){
+        if()
         contatoService.deletar(id);
         return ResponseEntity.ok("Deletado");
     }
@@ -62,9 +64,9 @@ public class ContatoController {
     }
 
     @GetMapping(value = "/buscarPorNome", produces = "application/json")
-    public ResponseEntity<List<Contato>> getContatoById(@RequestParam(name = "nome") String nome){
-        List<Contato> contatos = contatoRepository.findByNomeContaining(nome);
-        return new ResponseEntity<List<Contato>>(contatos, HttpStatus.OK);
+    public ResponseEntity<List<DadosCadastroContato>> getContatoById(@RequestParam(name = "nome") String nome){
+        List<DadosCadastroContato> contatos = contatoRepository.findByNomeContaining(nome);
+        return new ResponseEntity<List<DadosCadastroContato>>(contatos, HttpStatus.OK);
     }
 
 }
